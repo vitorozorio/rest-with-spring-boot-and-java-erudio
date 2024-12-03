@@ -1,7 +1,7 @@
 package br.com.erudio;
 
+import br.com.erudio.exceptions.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -16,7 +16,7 @@ public class MathController {
             @PathVariable (value = "numberTwo") String numberTwo
             ) throws Exception {
         if  (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
-            throw new Exception();
+            throw new UnsupportedMathOperationException("Please set a numeric value!");
         }
         return covertToDouble(numberOne) + covertToDouble(numberTwo);
     }

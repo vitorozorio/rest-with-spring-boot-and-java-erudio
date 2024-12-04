@@ -2,9 +2,6 @@ package br.com.erudio;
 
 import br.com.erudio.exceptions.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -57,22 +54,16 @@ public class MathController {
         return ( (covertToDouble(numberOne) + covertToDouble(numberTwo) ) / 2)  ;
     }
 
-    @RequestMapping(value = "/squareRoot/{numberOne}/{numberTwo}", method = RequestMethod.GET)
-    public Map<String, Double> squareRoot(
-            @PathVariable (value = "numberOne") String numberOne,
-            @PathVariable (value = "numberTwo") String numberTwo
+    @RequestMapping(value = "/squareRoot/{numberOne}", method = RequestMethod.GET)
+    public Double squareRoot(
+            @PathVariable (value = "numberOne") String numberOne
     ) throws Exception {
-        if  (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+        if  (!isNumeric(numberOne)) {
             throw new UnsupportedMathOperationException("Please set a numeric value!");
         }
 
-        Map<String, Double> result = new HashMap<>();
-        result.put("raizSeparada", Math.sqrt(covertToDouble(numberOne)) + Math.sqrt(covertToDouble(numberTwo)));
-        result.put("raizDaSoma", Math.sqrt(covertToDouble(numberOne) + covertToDouble(numberTwo)));
-
-        return result;
+        return Math.sqrt(covertToDouble(numberOne));
     }
-
 
     public static Double covertToDouble(String strNumber) {
         if(strNumber == null) return 0D;
